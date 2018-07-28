@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>初步接触 CSS 2D 变形</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            background-color: #f7f6f6;
+            float: left;
+            margin-top: 50px;
+            margin-left: 50px;
+        }
+        
+        .box2 {
+            /* 向左倾斜30度。 */
+            transform: skew(30deg);
+        }
+        
+        .box3 {
+            /*X轴压缩2倍。 */
+            transform: scale(.5, 1);
+        }
+        
+        .box4 {
+            /*旋转45度。*/
+            transform: rotate(45deg);
+        }
+        
+        .box5 {
+            /*X轴移动10像素，Y轴移动20像素。*/
+            transform: translate(10px, 20px);
+        }
+        
+        .box6 {
+            /*包含以上所有属性。*/
+            transform: skew(30deg) scale(.5, 1) rotate(45deg) translate(10px, 20px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1">box1</div>
+    <div class="box2">box2</div>
+    <div class="box3">box3</div>
+    <div class="box4">box4</div>
+    <div class="box5">box5</div>
+    <div class="box6">box6</div>
+</body>
+
+</html>

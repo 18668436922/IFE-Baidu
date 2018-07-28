@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>制作一个简单的菜单动画效果</title>
+    <style>
+        a {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            width: 100px;
+            text-decoration: none;
+            font-size: 24px;
+            color: #ccc;
+        }
+        
+        span {
+            display: block;
+            width: 0;
+            margin: 0 auto;
+            height: 5px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: #517ae6;
+        }
+        
+        .demo {
+            color: #517ae6;
+            -webkit-transition: color .5s ease-in-out;
+        }
+        
+        .line {
+            width: 100px;
+            transition-property: width;
+            transition-duration: .5s;
+            transition-timing-function: ease-in-out;
+        }
+        
+        .disappear {
+            color: #ccc;
+            -webkit-transition: color .5s ease-in-out;
+        }
+        
+        .unline {
+            width: 0;
+            -webkit-transition: width .5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#">前端学院</a>
+    <span></span>
+    <button>切换样式</button>
+    <script>
+        var demo = document.getElementsByTagName('a')[0];
+        var btn = document.getElementsByTagName('button')[0];
+        var line = document.getElementsByTagName('span')[0];
+        var key = false;
+        btn.onclick = function() {
+            if (!key) {
+                demo.className = 'demo';
+                line.className = 'line';
+                key = true;
+            } else {
+                demo.className = 'disappear';
+                line.className = 'unline';
+                key = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
