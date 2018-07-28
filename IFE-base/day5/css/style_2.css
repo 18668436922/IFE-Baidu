@@ -1,0 +1,45 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 800px;
+    height: 1000px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.container h1 {
+    width: 170px;
+    height: 1000px;
+    float: left;
+    background: rgb(104, 164, 251);
+    color: #fff;
+    padding-top: 50px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.information {
+    padding-top: 30px;
+}
+
+.information,
+.contact {
+    width: 600px;
+    height: 100px;
+    float: left;
+}
+
+.information p,
+.contact p {
+    float: left;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.other h2,
+.other p {
+    margin-bottom: 20px;
+}

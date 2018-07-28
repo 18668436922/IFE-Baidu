@@ -1,0 +1,48 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.container h1 {
+    width: 800px;
+    height: 50px;
+    background: rgb(133, 133, 133);
+    color: #fff;
+    font-size: 20px;
+    line-height: 50px;
+    padding-left: 20px;
+}
+
+.container h2 {
+    width: 100px;
+    height: 100px;
+    background: rgb(214, 214, 214);
+    font-size: 16px;
+    text-align: center;
+    line-height: 100px;
+    float: left;
+}
+
+.demo {
+    width: 800px;
+    height: 100px;
+    border: 1px solid rgb(234, 234, 234);
+}
+
+.information p,
+.contact p {
+    float: left;
+    line-height: 100px;
+    margin-left: 30px;
+}
+
+.ability h5,
+.ability p {
+    margin-left: 30px;
+}

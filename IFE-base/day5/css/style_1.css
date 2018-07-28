@@ -1,0 +1,27 @@
+body {
+    background: #ccc;
+}
+
+.container {
+    background: #fff;
+    width: 800px;
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.information,
+.contact {
+    width: 800px;
+    height: 100px;
+}
+
+.information p,
+.contact p {
+    float: left;
+    margin-right: 20px;
+}
+
+.contact a {
+    text-decoration: none;
+}
