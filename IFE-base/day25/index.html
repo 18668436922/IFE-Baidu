@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <select id="year-select">
+    </select>
+
+    <select id="month-select">
+    </select>
+
+    <select id="day-select">
+    </select>
+
+    <select id="hour-select">
+    </select>
+
+    <select id="minute-select">
+    </select>
+
+    <select id="second-select">
+    </select>
+
+    <p id="result-wrapper">现在距离 2000年1月1日 星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+    <script>
+        var y = document.querySelector('#year-select');
+        var month = document.querySelector('#month-select');
+        var day = document.querySelector('#day-select');
+        var h = document.querySelector('#hour-select');
+        var m = document.querySelector('#minute-select');
+        var s = document.querySelector('#second-select');
+        var Cont = document.querySelector('#result-wrapper');
+        var select = document.querySelectorAll('select');
+
+
+        function setNumber(elem, n, demo) { //按要求添加选项数量以及内容。demo参数解决day每次更新的遗留问题。
+            if (elem == y) {
+                for (var i = 0; i < n; i++) {
+                    var options = document.createElement('option');
+                    options.innerHTML = 2000 + i;
+                    elem.appendChild(options);
+                }
+            }
+            if (elem == month) {
+                for (var i = 1; i < n; i++) {
+                    var options = document.createElement('option');
+                    options.innerHTML = i;
+                    elem.appendChild(options);
+                }
+            }
+            if (elem == day) {
+                elem.innerHTML = '';
+                for (var i = 1; i < n; i++) {
+                    var options = document.createElement('option');
+                    options.innerHTML = i;
+                    elem.appendChild(options);
+                }
+                elem.value = demo;
+            }
+            if (elem == h) {
+                for (var i = 0; i < n; i++) {
+                    var options = document.createElement('option');
+                    options.innerHTML = checkTime(i);
+                    elem.appendChild(options);
+                }
+            }
+            if (elem == m || elem == s) {
+                for (var i = 0; i < n; i++) {
+                    var options = document.createElement('option');
+                    options.innerHTML = checkTime(i);
+                    elem.appendChild(options);
+                }
+            }
+        }
+        for (var i = 0; i < select.length; i++) {
+            select[i].onchange = function() {
+                setNumber(day, getDaysInMonth(y.value, month.value) + 1, day.value); //按月份改变当月天数。
+                timeDifference(y.value, month.value, day.value, h.value, m.value, s.value);
+            }
+        }
+
+        function timeDifference(dYear, dMonth, dDay, dHours, dMinute, dSecond) { //计算时差。
+            var nowTime = new Date();
+            var setTargetTime = Date.parse(dYear + '/' + dMonth + '/' + dDay + ' ' + dHours + ':' + dMinute + ':' + dSecond);
+            var targetTime = new Date(setTargetTime);
+            var x = nowTime - targetTime;
+            var dayType = 1000 * 60 * 60 * 24;
+            var hoursType = 1000 * 60 * 60;
+            var minuteType = 1000 * 60;
+            var dayDifference = Math.floor(Math.abs(x) / dayType);
+            var hoursDifference = Math.floor((Math.abs(x) - (dayDifference * dayType)) / hoursType);
+            var minuteDifference = Math.floor((Math.abs(x) - dayDifference * dayType - hoursDifference * hoursType) / minuteType);
+            var secondDifference = Math.floor((Math.abs(x) - dayDifference * dayType - hoursDifference * hoursType - minuteDifference * minuteType) / 1000);
+            console.log(dayDifference);
+            console.log(hoursDifference);
+            console.log(minuteDifference);
+            console.log(secondDifference);
+            var myDate = new Date(y.value + '-' + month.value + '-' + day.value).getDay();
+            if (x > 0) {
+                Cont.innerHTML = '现在距离 ' + y.value + '年' + month.value + '月' + day.value + '日 ' +
+                    '星期' + myDate + ' ' + h.value + ':' + m.value + ':' + s.value + ' 已经过去 ' + dayDifference + ' 天 ' +
+                    +hoursDifference + ' 小时 ' + minuteDifference + ' 分 ' + secondDifference + ' 秒';
+            } else if (x < 0) {
+                Cont.innerHTML = '现在距离 ' + y.value + '年' + month.value + '月' + day.value + '日 ' +
+                    '星期' + myDate + ' ' + h.value + ':' + m.value + ':' + s.value + ' 还有 ' + dayDifference + ' 天 ' +
+                    +hoursDifference + ' 小时 ' + minuteDifference + ' 分 ' + secondDifference + ' 秒';
+            }
+            return x;
+        }
+
+        function getDaysInMonth(year, month) { //获取当月应有多少天。
+            var days = new Date(year, month, 1);
+            return demo = new Date(days.getTime() - 864e5).getDate();
+        }
+
+        function checkTime(j) { //当时间小于10 前面添加‘0’。
+            if (j < 10) {
+                j = '0' + j;
+            }
+            return j;
+        }
+        setNumber(y, 31);
+        setNumber(month, 13);
+        setNumber(day, 32, 1);
+        setNumber(h, 24);
+        setNumber(m, 60);
+        setNumber(s, 60);
+    </script>
+</body>
+
+</html>
