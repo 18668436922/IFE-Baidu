@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .wrapper {
+            margin-left: 200px;
+            width: 300px;
+            margin-top: 100px;
+        }
+        
+        #email-input {
+            width: 127px;
+        }
+        
+        #email-sug-wrapper {
+            border: 1px solid #ccc;
+            width: 127px;
+            border-top: none;
+        }
+        
+        #email-sug-wrapper li {
+            list-style: none;
+            font-size: 12px;
+        }
+        
+        #email-sug-wrapper li:hover {
+            background: #c4ddeb;
+            color: #f5c7cf;
+            cursor: pointer;
+        }
+        
+        #email-sug-wrapper .active {
+            background: #c4ddeb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <input id="email-input" type="text">
+        <ul id="email-sug-wrapper" class="email-sug"></ul>
+    </div>
+    <script>
+        var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+        var myEmail = document.querySelector('#email-input');
+        var myUl = document.querySelector('#email-sug-wrapper');
+        var list = [];
+        var li = document.getElementsByTagName('li');
+        var liIndex = 0;
+        window.onclick = function() {
+                myEmail.focus();
+            }
+            //自动聚焦input。
+        myEmail.focus();
+
+        var HtmlUtil = {
+            htmlEncode: function(html) { //用浏览器内部转换器实现html转码。
+                var temp = document.createElement('div');
+                (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html);
+                var output = temp.innerHTML;
+                temp = null;
+                return output;
+            }
+
+        }
+
+        myEmail.onkeyup = function() {
+            myUl.style.display = 'none';
+            var inputStr = Trim(myEmail.value);
+            liCont();
+            ulDisplay(inputStr);
+            for (var i = 0; i < li.length; i++) {
+                li[i].onclick = function() {
+                    myEmail.value = this.textContent;
+                    myUl.style.display = 'none';
+                }
+
+            }
+            document.onkeyup = function(e) {
+                var e = event || window.event;
+                if (myEmail.value != '') {
+                    if (e.keyCode != 38 && e.keyCode != 40 && e.keyCode != 13 && e.keyCode != 27) {
+                        reset();
+                    }
+                    if (e.keyCode == 38) { //向上
+                        if (liIndex <= 0) {
+                            liIndex = li.length - 1;
+                        } else {
+                            liIndex--;
+                        }
+                    }
+                    if (e.keyCode == 40) { //向下
+                        if (liIndex >= li.length - 1) {
+                            liIndex = 0;
+                        } else {
+                            liIndex++;
+                        }
+                    }
+                    if (li.length > 0) {
+                        li[liIndex].className = 'active';
+                    } else if (li.length == 0) {
+                        return;
+                    }
+                    if (e.keyCode == 13) { //回车
+                        myEmail.value = li[liIndex].textContent;
+                        myUl.style.display = 'none';
+                    }
+                    if (e.keyCode == 27) { // ESC全选
+                        myEmail.select();
+                    }
+                }
+            }
+        }
+
+        function reset() {
+            if (liIndex != 0) {
+                liIndex = 0;
+            }
+        }
+
+        function Trim(str) {
+            return str.replace(/\s|\xA0/g, "");
+        }
+
+
+        function liCont() {
+            var inputStr = HtmlUtil.htmlEncode(Trim(myEmail.value));
+            if (inputStr.indexOf('@') != -1) {
+                var newStr = inputStr.slice(0, inputStr.indexOf('@'));
+                var matchStr = inputStr.slice(inputStr.indexOf('@') + 1);
+                for (var i = 0; i < postfixList.length; i++) {
+                    if (postfixList[i].indexOf(matchStr) != -1) { //判断 ‘@’ 之后有没有匹配的字符。
+                        list[i] = '<li>' + newStr + '@' + postfixList[i] + '</li>';
+                    } else {
+                        list[i] = '';
+                    }
+                }
+            } else {
+                for (var i = 0; i < postfixList.length; i++) {
+                    list[i] = '<li>' + inputStr + '@' + postfixList[i] + '</li>';
+                }
+            }
+            return list;
+        }
+
+        function ulCont() {
+            myUl.innerHTML = '';
+            for (var i = 0; i < list.length; i++) {
+                myUl.innerHTML += list[i];
+            }
+        }
+
+        function ulDisplay(str) {
+            if (str == '') {
+                myUl.style.display = 'none';
+            } else {
+                myUl.style.display = 'block';
+                ulCont();
+            }
+        }
+    </script>
+</body>
+
+</html>
