@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +11,15 @@
             margin: 0;
             padding: 0;
         }
+
         body {
             background: #000;
         }
+
         .stage {
             perspective: 300px;
         }
+
         .wrap {
             position: relative;
             width: 200px;
@@ -23,6 +27,7 @@
             margin: 25% auto;
             transform-style: preserve-3d;
         }
+
         .wrap div {
             position: absolute;
             width: 200px;
@@ -37,27 +42,35 @@
             color: #fff;
             line-height: 200px;
         }
+
         .up {
             transform: rotateX(90deg) translateZ(100px);
         }
+
         .down {
             transform: rotateX(90deg) translateZ(-100px);
         }
+
         .left {
             transform: rotateY(90deg) translateZ(-100px);
         }
+
         .right {
             transform: rotateY(90deg) translateZ(100px);
         }
+
         .front {
             transform: translateZ(100px);
         }
+
         .back {
             transform: translateZ(-100px);
         }
+
         .wrap:hover {
             animation: rotate 5s linear infinite;
         }
+
         @keyframes rotate {
             0% {
                 transform: rotateY(360deg)
@@ -69,21 +82,20 @@
                 transform: rotateY(0)
             }
         }
-        
-
-
     </style>
 </head>
+
 <body>
     <div class="stage">
-            <div class="wrap">
-                    <div class="up">UP</div>
-                    <div class="down">DOWN</div>
-                    <div class="left">LEFT</div>
-                    <div class="right">RIGHT</div>
-                    <div class="front">FRONT</div>
-                    <div class="back">BACK</div>
-                </div>
+        <div class="wrap">
+            <div class="up">UP</div>
+            <div class="down">DOWN</div>
+            <div class="left">LEFT</div>
+            <div class="right">RIGHT</div>
+            <div class="front">FRONT</div>
+            <div class="back">BACK</div>
+        </div>
     </div>
 </body>
+
 </html>
