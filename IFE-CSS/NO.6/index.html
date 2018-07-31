@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用CSS Animation 制作一个Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background-size: 100% 100%;
+        }
+
+        .container {
+            width: 100%;
+            background-image: url(images/1.jpg);
+            background-size: 100% 100%;
+        }
+
+        .wrapper ul {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            width: 800px;
+            margin-left: -400px;
+            list-style: none;
+            display: flex;
+            display: -webkit-flex;
+            justify-content: space-around;
+            /* 自动分配间隔 */
+        }
+
+        .img_list li {
+            width: 150px;
+            height: 120px;
+            cursor: pointer;
+        }
+
+        .img_list li img {
+            width: 150px;
+            height: 120px;
+        }
+
+        .page1 {
+            background-image: url(images/1.jpg);
+            animation: leftMove .5s ease-out;
+        }
+
+        .page2 {
+            background-image: url(images/2.jpg);
+            animation: topMove .5s ease-out;
+        }
+
+        .page3 {
+            background-image: url(images/3.jpg);
+            animation: smal 1s ease-in;
+        }
+
+        .page4 {
+            background-image: url(images/4.jpg);
+            animation: big 1s ease-out;
+        }
+
+        .page5 {
+            background-image: url(images/5.jpg);
+            animation: change .7s ease-in-out;
+        }
+
+        @keyframes leftMove {
+            0% {
+                transform: translateX(-500px);
+            }
+            100% {
+                transform: translateX(0px);
+            }
+        }
+
+        @keyframes topMove {
+            0% {
+                transform: translateY(350px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes smal {
+            0% {
+                transform: scale(0.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes big {
+            0% {
+                transform: scale(2)
+            }
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        @keyframes change {
+            0% {
+                transform: rotate(-360deg) scale(.1);
+            }
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+        </div>
+        <div class="img_list">
+            <ul>
+                <li>
+                    <img src="images/1.jpg" alt="01">
+                </li>
+                <li>
+                    <img src="images/2.jpg" alt="02">
+                </li>
+                <li>
+                    <img src="images/3.jpg" alt="03">
+                </li>
+                <li>
+                    <img src="images/4.jpg" alt="04">
+                </li>
+                <li>
+                    <img src="images/5.jpg" alt="05">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var wrap = document.getElementsByClassName('wrapper')[0];
+        var container = document.getElementsByClassName('container')[0];
+        container.style.height = window.innerHeight + 'px'; //给类container 添加高度，撑开背景图片。
+        var oList = document.getElementsByClassName('img_list')[0];
+        var oLi = oList.getElementsByTagName('li');
+        for (var i = 0; i < oLi.length; i++) {
+            (function (i) { //这个是function 里的 i
+                oLi[i].onclick = function () {
+                    if (i == 0) { //偷懒，好一点的思路应该是类container中重叠4张图片，通过点击改变Z-index值，显示不同图片。
+                        container.className = 'container';
+                        container.className += ' page' + (i + 1);
+                        wrap.style.backgroundImage = 'url(images/2.jpg)';
+                    } else {
+                        wrap.style.backgroundImage = 'url(images/' + i + '.jpg)';
+                        container.className = 'container';
+                        container.className += ' page' + (i + 1);
+                    }
+
+                }
+            })(i) //这是循环中的i,被当作参数传入。
+        }
+    </script>
+</body>
+
+</html>
