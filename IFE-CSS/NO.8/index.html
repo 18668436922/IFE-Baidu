@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/lottie.js"></script>
+    <title>把 AE 动画转换成Web 原声动画</title>
+    <style>
+        body {
+            background: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="animation"></div>
+    <script>
+        //可能需要设置跨域问题，否则会报错。firebox正常运行。
+        lottie.loadAnimation({
+            path: 'data.json', //json路径
+            loop: true,
+            autoplay: true,
+            render: 'canvas', //渲染方式，有"html","canvas","svg" 三种。
+            container: document.getElementById('animation')
+        });
+    </script>
+</body>
+
+</html>
